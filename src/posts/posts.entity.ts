@@ -5,8 +5,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
+  JoinColumn, Index,
 } from 'typeorm';
 import { Files } from '../files/files.entity';
+import { Users } from '../users/users.entity';
 
 @Entity()
 export class Posts {
@@ -14,13 +17,16 @@ export class Posts {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 250 })
+  @Index()
+  @Column({ length: 255 })
   slug: string;
 
-  @Column({ length: 250 })
+  @Index()
+  @Column({ length: 255 })
   key: string;
 
-  @Column({ length: 250 })
+  @Index()
+  @Column({ length: 255 })
   title: string;
 
   @Column({
@@ -35,8 +41,9 @@ export class Posts {
   })
   mature: number;
 
-  @Column({ name: 'user_id' })
-  userId: number;
+  @OneToOne(type => Users)
+  @JoinColumn({ name: 'user_id' })
+  user: Users;
 
   @OneToMany(type => Files, files => files.post)
   files: Files[];
