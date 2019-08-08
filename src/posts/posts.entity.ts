@@ -6,10 +6,12 @@ import {
   UpdateDateColumn,
   OneToMany,
   OneToOne,
-  JoinColumn, Index,
+  JoinColumn,
+  Index,
 } from 'typeorm';
 import { Files } from '../files/files.entity';
 import { Users } from '../users/users.entity';
+import { BoardsToPosts } from '../boardsToPosts/boardsToPosts.entity';
 
 @Entity()
 export class Posts {
@@ -47,6 +49,9 @@ export class Posts {
 
   @OneToMany(type => Files, files => files.post)
   files: Files[];
+
+  @OneToMany((type) => BoardsToPosts, (boardsToPosts) => boardsToPosts.posts)
+  public boardsToPosts!: BoardsToPosts[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;

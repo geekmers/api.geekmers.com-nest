@@ -50,12 +50,15 @@ export class Users {
   @Column({ type: 'tinyint' })
   nsfw: number;
 
-  @CreateDateColumn({name: 'created_at'})
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
 
-  @UpdateDateColumn({ name: 'updated_at'})
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: string;
 
-  @Column({type: 'datetime', name: 'deleted_at'})
+  @Column({
+    type: 'datetime',
+    name: 'deleted_at',
+  })
   deletedAt: string;
 }

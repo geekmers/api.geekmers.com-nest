@@ -4,14 +4,16 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
-  JoinColumn, OneToOne, Index,
+  OneToMany,
+  JoinColumn,
+  OneToOne,
+  Index,
 } from 'typeorm';
-import { Posts } from '../posts/posts.entity';
 import { Users } from '../users/users.entity';
+import { BoardsToPosts } from '../boardsToPosts/boardsToPosts.entity';
 
 @Entity()
-export class Files {
+export class Boards {
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -31,29 +33,24 @@ export class Files {
   @Column({ type: 'text' })
   description: string;
 
-  @Column({ name: 'file_name', length: 255 })
-  fileName: string;
-
-  @Column({ name: 'field_type_id'})
-  fileTypeId: number;
-
   @OneToOne(type => Users)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'created_by' })
   user: Users;
 
-  @ManyToOne(type => Posts, post => post.files)
-  @JoinColumn({ name: 'post_id' })
-  post: Posts;
+  @OneToMany((type) => BoardsToPosts, (boardsToPosts) => boardsToPosts.posts)
+  public boardsToPosts!: BoardsToPosts[];
 
   @Column()
   position: number;
 
-  @CreateDateColumn({name: 'created_at'})
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
 
-  @UpdateDateColumn({ name: 'updated_at'})
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: string;
 
-  @Column({type: 'datetime', name: 'deleted_at'})
+  @Column({ type: 'datetime',
+    name: 'deleted_at ',
+  })
   deletedAt: string;
 }
