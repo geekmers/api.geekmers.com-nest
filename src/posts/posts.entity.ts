@@ -9,9 +9,9 @@ import {
   JoinColumn,
   Index,
 } from 'typeorm';
-import { Files } from '../files/files.entity';
 import { Users } from '../users/users.entity';
 import { BoardsToPosts } from '../boardsToPosts/boardsToPosts.entity';
+import { FilesToPosts } from '../filesToPosts/filesToPosts.entity';
 
 @Entity()
 export class Posts {
@@ -47,11 +47,11 @@ export class Posts {
   @JoinColumn({ name: 'user_id' })
   user: Users;
 
-  @OneToMany(type => Files, files => files.post)
-  files: Files[];
-
   @OneToMany((type) => BoardsToPosts, (boardsToPosts) => boardsToPosts.posts)
   public boardsToPosts!: BoardsToPosts[];
+
+  @OneToMany((type) => FilesToPosts, (filesToPosts) => filesToPosts.posts)
+  public filesToPosts!: FilesToPosts[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;

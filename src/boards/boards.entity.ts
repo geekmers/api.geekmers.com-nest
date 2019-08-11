@@ -50,7 +50,7 @@ export class Boards {
   updatedAt: string;
 
   @Column({ type: 'datetime',
-    name: 'deleted_at ',
+    name: 'deleted_at',
   })
   deletedAt: string;
 }

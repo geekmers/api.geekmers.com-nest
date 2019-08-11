@@ -4,11 +4,13 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
-  JoinColumn, OneToOne, Index,
+  JoinColumn,
+  OneToOne,
+  Index,
+  OneToMany,
 } from 'typeorm';
-import { Posts } from '../posts/posts.entity';
 import { Users } from '../users/users.entity';
+import { FilesToPosts } from '../filesToPosts/filesToPosts.entity';
 
 @Entity()
 export class Files {
@@ -41,9 +43,8 @@ export class Files {
   @JoinColumn({ name: 'user_id' })
   user: Users;
 
-  @ManyToOne(type => Posts, post => post.files)
-  @JoinColumn({ name: 'post_id' })
-  post: Posts;
+  @OneToMany((type) => FilesToPosts, (filesToPosts) => filesToPosts.posts)
+  public filesToPosts!: FilesToPosts[];
 
   @Column()
   position: number;
@@ -54,6 +55,9 @@ export class Files {
   @UpdateDateColumn({ name: 'updated_at'})
   updatedAt: string;
 
-  @Column({type: 'datetime', name: 'deleted_at'})
+  @Column({
+    type: 'datetime',
+    name: 'deleted_at',
+  })
   deletedAt: string;
 }
