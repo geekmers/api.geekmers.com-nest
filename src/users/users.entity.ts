@@ -5,7 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Index,
+  OneToMany,
 } from 'typeorm';
+import { CommunitiesToUsers } from '../communitiesToUsers/communitiesToUsers.entity';
+import { Communities } from '../communities/communities.entity';
 
 @Entity()
 export class Users {
@@ -49,6 +52,9 @@ export class Users {
 
   @Column({ type: 'tinyint' })
   nsfw: number;
+
+  @OneToMany((type) => CommunitiesToUsers, (communitiesToUsers) => communitiesToUsers.communities)
+  public communitiesToUsers!: CommunitiesToUsers[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
