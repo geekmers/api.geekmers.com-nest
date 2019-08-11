@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  Index,
+  Index, OneToMany,
 } from 'typeorm';
+import { CategoriesToCommunities } from '../categoriesToCommunities/categoriesToCommunities.entity';
+
 @Entity()
 export class Categories {
 
@@ -18,6 +20,9 @@ export class Categories {
 
   @Column({ type: 'text' })
   description: string;
+
+  @OneToMany((type) => CategoriesToCommunities, (categoriesToCommunities) => categoriesToCommunities.categories)
+  public categoriesToCommunities!: CategoriesToCommunities[];
 
   @CreateDateColumn({name: 'created_at'})
   createdAt: string;

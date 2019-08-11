@@ -37,7 +37,7 @@ export class Boards {
   @JoinColumn({ name: 'created_by' })
   user: Users;
 
-  @OneToMany((type) => BoardsToPosts, (boardsToPosts) => boardsToPosts.posts)
+  @OneToMany((type) => BoardsToPosts, (boardsToPosts) => boardsToPosts.boards)
   public boardsToPosts!: BoardsToPosts[];
 
   @Column()

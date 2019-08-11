@@ -4,17 +4,17 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  JoinColumn,
   OneToOne,
+  JoinColumn,
   Index,
   OneToMany,
 } from 'typeorm';
 import { Users } from '../users/users.entity';
-import { FilesToPosts } from '../filesToPosts/filesToPosts.entity';
+import { CategoriesToCommunities } from '../categoriesToCommunities/categoriesToCommunities.entity';
 import { FilesToCommunities } from '../filesToCommunities/filesToCommunities.entity';
 
 @Entity()
-export class Files {
+export class Communities {
 
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,43 +25,47 @@ export class Files {
 
   @Index()
   @Column({ length: 255 })
-  key: string;
-
-  @Index()
-  @Column({ length: 255 })
   title: string;
 
-  @Column({ type: 'text' })
-  description: string;
+  @Column({
+    type: 'tinyint',
+    default: 0,
+  })
+  flag: number;
 
-  @Column({ name: 'file_name', length: 255 })
-  fileName: string;
-
-  @Column({ name: 'field_type_id'})
-  fileTypeId: number;
+  @Column({
+    type: 'tinyint',
+    default: 0,
+  })
+  mature: number;
 
   @OneToOne(type => Users)
   @JoinColumn({ name: 'user_id' })
   user: Users;
 
-  @OneToMany((type) => FilesToPosts, (filesToPosts) => filesToPosts.posts)
-  public filesToPosts!: FilesToPosts[];
+  @OneToMany((type) => CategoriesToCommunities, (categoriesToCommunities) => categoriesToCommunities.communities)
+  public categoriesToCommunities!: CategoriesToCommunities[];
 
   @OneToMany((type) => FilesToCommunities, (filesToCommunities) => filesToCommunities.files)
   public filesToCommunities!: FilesToCommunities[];
 
-  @Column()
-  position: number;
-
-  @CreateDateColumn({name: 'created_at'})
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
 
-  @UpdateDateColumn({ name: 'updated_at'})
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: string;
 
   @Column({
     type: 'datetime',
+    default: null,
     name: 'deleted_at',
   })
   deletedAt: string;
+
+  @Column({
+    type: 'datetime',
+    default: null,
+    name: 'published_at',
+  })
+  publishedAt: string;
 }
