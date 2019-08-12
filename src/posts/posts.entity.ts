@@ -13,6 +13,7 @@ import { Users } from '../users/users.entity';
 import { BoardsToPosts } from '../boardsToPosts/boardsToPosts.entity';
 import { FilesToPosts } from '../filesToPosts/filesToPosts.entity';
 import { CommentsToPosts } from '../commentsToPosts/commentsToPosts.entity';
+import { VotesToPosts } from '../votesToPosts/votesToPosts.entity';
 
 @Entity()
 export class Posts {
@@ -56,6 +57,9 @@ export class Posts {
 
   @OneToMany((type) => CommentsToPosts, (commentsToPosts) => commentsToPosts.posts)
   public commentsToPosts!: CommentsToPosts[];
+
+  @OneToMany((type) => VotesToPosts, (votesToPosts) => votesToPosts.posts)
+  public votesToPosts!: VotesToPosts[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;

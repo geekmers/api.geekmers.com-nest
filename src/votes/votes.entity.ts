@@ -3,28 +3,22 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
-  Index, OneToOne, JoinColumn, OneToMany,
+  UpdateDateColumn, OneToMany,
 } from 'typeorm';
-import { Users } from '../users/users.entity';
-import { CommentsToPosts } from '../commentsToPosts/commentsToPosts.entity';
+import { VotesToPosts } from '../votesToPosts/votesToPosts.entity';
 import { VotesToComments } from '../votesToComments/votesToComments.entity';
 
 @Entity()
-export class Comments {
+export class Votes {
 
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'text' })
-  comment: string;
+  @Column({ length: 5 })
+  type: string;
 
-  @OneToOne(type => Users)
-  @JoinColumn({ name: 'user_id' })
-  user: Users;
-
-  @OneToMany((type) => CommentsToPosts, (commentsToPosts) => commentsToPosts.comments)
-  public commentsToPosts!: CommentsToPosts[];
+  @OneToMany((type) => VotesToPosts, (votesToPosts) => votesToPosts.posts)
+  public votesToPosts!: VotesToPosts[];
 
   @OneToMany((type) => VotesToComments, (votesToComments) => votesToComments.comments)
   public votesToComments!: VotesToComments[];
