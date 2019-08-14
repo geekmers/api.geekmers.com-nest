@@ -3,7 +3,7 @@ import {
   Query,
 } from '@nestjs/graphql';
 import { PostsService } from './posts.service';
-import { CreatePostsDto } from './dto/create-posts.dto';
+import { PostsDto } from './dto/posts.dto';
 
 @Resolver()
 export class PostsResolver {
@@ -16,7 +16,7 @@ export class PostsResolver {
   //   return 'hello world';
   // }
 
-  @Query(() => [CreatePostsDto])
+  @Query(() => [PostsDto])
   async posts() {
     return this.postsService.findAll();
   }

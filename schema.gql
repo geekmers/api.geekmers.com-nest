@@ -3,12 +3,28 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type CreatePostsDto {
+type PostsDto {
   id: Int!
   title: String!
-  url: String!
+  slug: String!
+  mature: Boolean!
+  user: [UsersDto!]!
+  createdAt: String
+  updatedAt: String!
+  publishedAt: String!
 }
 
 type Query {
-  posts: [CreatePostsDto!]!
+  posts: [PostsDto!]!
+}
+
+type UsersDto {
+  id: Int!
+  firstName: String!
+  lastName: String!
+  nick: String!
+  dateOfBirth: String
+  createdAt: String
+  updatedAt: String!
+  publishedAt: String!
 }
